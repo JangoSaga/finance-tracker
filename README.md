@@ -2,7 +2,7 @@
 
 A modern, full-featured personal finance management application that helps you take control of your financial life.
 
-![Finance Tracker](./src/assets/wallpaper.jpg)
+![Finance Tracker](./public/wallpaper.jpg)
 
 ## ✨ Features
 
