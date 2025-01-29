@@ -41,7 +41,7 @@ function Profile() {
         </div>
 
         <div className="border-t pt-4">
-          <div className="flex justify-between items-center mb-3">
+          <div className="flex justify-between items-center mb-3 gap-2">
             <h3 className="text-lg font-semibold">Account Information</h3>
             {!isEditing && (
               <button

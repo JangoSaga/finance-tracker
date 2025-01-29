@@ -139,15 +139,15 @@ function Budgets() {
           ))}
         </div>
       ) : (
-        <div className="flex flex-row gap-4 w-full items-center justify-center p-4 bg-stone-100 rounded-lg h-96">
+        <div className="flex flex-col md:flex-row justify-center items-center min-h-[60vh] gap-6 p-4">
           <img
-            src={"budget.png"}
-            alt="No Budgets"
-            className="w-70 h-70 object-contain grayscale"
+            src="budget.png"
+            alt="No Budget"
+            className="grayscale w-full max-w-[280px] md:max-w-[320px] h-auto object-contain"
           />
-          <h1 className="text-2xl font-bold text-center text-stone-500">
-            No budgets yet, add your first budget
-          </h1>
+          <p className="text-2xl font-bold text-center md:text-left">
+            No Budget yet, add your first budget
+          </p>
         </div>
       )}
     </div>
