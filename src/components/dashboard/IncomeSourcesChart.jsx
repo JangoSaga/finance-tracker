@@ -22,23 +22,30 @@ function IncomeSourcesChart({ incomes }) {
 
   const COLORS = ["#4CAF50", "#2196F3", "#FFC107", "#9C27B0", "#FF9800"];
 
+  // Custom label function for better visibility
+  const renderLabel = ({ name, percent }) => {
+    return `${name.length > 10 ? name.slice(0, 10) + "..." : name}: ${(
+      percent * 100
+    ).toFixed(0)}%`;
+  };
+
   return (
-    <div className="flex flex-col justify-center items-center p-6 bg-white rounded-xl shadow-sm">
-      <h1 className="text-2xl font-bold mb-6 text-gray-800">Income Sources</h1>
-      <ResponsiveContainer width="100%" height={300}>
-        <PieChart margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
+    <div className="flex flex-col justify-center items-center p-4 bg-white rounded-xl shadow-sm w-full max-w-sm mx-auto">
+      <h1 className="text-lg sm:text-2xl font-bold mb-4 text-gray-800">
+        Income Sources
+      </h1>
+      <ResponsiveContainer width="100%" height={320}>
+        <PieChart>
           <Pie
             data={data}
             dataKey="value"
             nameKey="name"
             cx="50%"
             cy="50%"
-            innerRadius={80}
-            outerRadius={110}
-            label={({ name, percent }) =>
-              `${name}: ${(percent * 100).toFixed(0)}%`
-            }
-            labelLine={true}
+            innerRadius={50}
+            outerRadius={window.innerWidth < 640 ? 90 : 110} // Adjust for mobile
+            label={renderLabel}
+            labelLine={false}
           >
             {data.map((entry, index) => (
               <Cell
@@ -57,14 +64,7 @@ function IncomeSourcesChart({ incomes }) {
               boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
             }}
           />
-          <Legend
-            verticalAlign="bottom"
-            height={36}
-            iconType="circle"
-            formatter={(value) => (
-              <span className="text-gray-700">{value}</span>
-            )}
-          />
+          <Legend verticalAlign="bottom" height={50} iconType="circle" />
         </PieChart>
       </ResponsiveContainer>
     </div>

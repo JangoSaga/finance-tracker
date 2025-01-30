@@ -9,32 +9,32 @@ import {
 } from "recharts";
 
 function FinancialPieChart({ data }) {
+  // Custom label function to improve readability
+  const renderLabel = ({ name, percent }) => {
+    const percentage = (percent * 100).toFixed(0);
+    return `${
+      name.length > 10 ? name.slice(0, 10) + "..." : name
+    }: ${percentage}%`;
+  };
+
   return (
-    <div className="h-full p-8 flex flex-col text-center bg-white rounded-xl shadow-lg justify-center items-center">
-      <h1 className="text-2xl font-bold mb-8 text-gray-800">
+    <div className="p-6 flex flex-col text-center bg-white rounded-xl shadow-lg w-full max-w-sm mx-auto">
+      <h1 className="text-lg sm:text-2xl font-bold mb-4 text-gray-800">
         Income vs Expenses
       </h1>
-      <ResponsiveContainer width="100%" height={350}>
-        <PieChart margin={{ top: 10, right: 0, left: 0, bottom: 10 }}>
+      <ResponsiveContainer width="100%" height={320}>
+        <PieChart>
           <Pie
             data={data}
             dataKey="value"
             nameKey="name"
             cx="50%"
             cy="50%"
-            outerRadius={100}
-            innerRadius={70}
+            outerRadius={window.innerWidth < 640 ? 90 : 110} // Adjust for mobile
+            innerRadius={60}
             paddingAngle={2}
-            label={({ name, percent }) => {
-              const percentage = (percent * 100).toFixed(0);
-              return `${name}: ${percentage}%`;
-            }}
-            labelLine={{
-              stroke: "#666666",
-              strokeWidth: 1,
-              strokeDasharray: "",
-              offsetRadius: 20,
-            }}
+            label={renderLabel}
+            labelLine={false}
           >
             {data.map((entry, index) => (
               <Cell
@@ -60,15 +60,10 @@ function FinancialPieChart({ data }) {
           />
           <Legend
             verticalAlign="bottom"
-            height={45}
+            height={50}
             iconType="circle"
-            iconSize={10}
-            formatter={(value) => (
-              <span className="text-gray-700 text-sm font-medium">{value}</span>
-            )}
-            wrapperStyle={{
-              paddingTop: "15px",
-            }}
+            iconSize={12}
+            wrapperStyle={{ paddingTop: "10px" }}
           />
         </PieChart>
       </ResponsiveContainer>

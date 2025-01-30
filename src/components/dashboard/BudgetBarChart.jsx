@@ -14,6 +14,7 @@ import { useCategories } from "../../Features/categories/useCategories";
 function BudgetBarChart({ budgets, expenses }) {
   const [timeFrame, setTimeFrame] = useState("monthly");
   const { categories } = useCategories();
+
   // Prepare data by combining budgets and actual expenses
   const prepareData = () => {
     const budgetData = {};
@@ -24,7 +25,6 @@ function BudgetBarChart({ budgets, expenses }) {
         (c) => c.category_id === budget.category_id
       );
       const categoryName = category?.category_name || "Uncategorized";
-      console.log(categoryName);
       if (!budgetData[categoryName]) {
         budgetData[categoryName] = {
           category: categoryName,
@@ -33,7 +33,6 @@ function BudgetBarChart({ budgets, expenses }) {
         };
       }
 
-      // Adjust budget amount based on type
       let adjustedAmount = Number(budget.amount);
       switch (timeFrame) {
         case "yearly":
@@ -120,9 +119,11 @@ function BudgetBarChart({ budgets, expenses }) {
   const data = prepareData();
 
   return (
-    <div className="flex flex-col justify-center items-center w-full">
+    <div className="flex flex-col justify-center items-center w-full p-2">
       <div className="w-full flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Budget vs Actual Spending</h1>
+        <h1 className="text-xl sm:text-2xl font-bold">
+          Budget vs Actual Spending
+        </h1>
         <select
           value={timeFrame}
           onChange={(e) => setTimeFrame(e.target.value)}
@@ -134,13 +135,19 @@ function BudgetBarChart({ budgets, expenses }) {
         </select>
       </div>
 
-      <ResponsiveContainer width="100%" height={400}>
+      <ResponsiveContainer width="100%" height={300}>
         <BarChart
           data={data}
-          margin={{ top: 20, right: 30, left: 20, bottom: 25 }}
+          margin={{ top: 20, right: 30, left: 20, bottom: 40 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="category" angle={-45} textAnchor="end" height={60} />
+          <XAxis
+            dataKey="category"
+            angle={-45}
+            textAnchor="end"
+            height={60}
+            tick={{ fontSize: window.innerWidth < 640 ? 10 : 12 }} // Adjust tick size for mobile
+          />
           <YAxis />
           <Tooltip
             formatter={(value, name) => [
@@ -149,8 +156,8 @@ function BudgetBarChart({ budgets, expenses }) {
             ]}
             labelFormatter={(label) => `Category: ${label}`}
           />
-          <Bar dataKey="budgeted" fill="#82ca9d" name="Budget" barSize={40} />
-          <Bar dataKey="actual" fill="#8884d8" name="Actual" barSize={40} />
+          <Bar dataKey="budgeted" fill="#82ca9d" name="Budget" barSize={30} />
+          <Bar dataKey="actual" fill="#8884d8" name="Actual" barSize={30} />
         </BarChart>
       </ResponsiveContainer>
     </div>

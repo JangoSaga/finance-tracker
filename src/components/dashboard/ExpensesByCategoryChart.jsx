@@ -32,7 +32,7 @@ function ExpensesByCategoryChart({ expenses }) {
 
   return (
     <div className="flex flex-col justify-center items-center p-6 bg-white rounded-xl shadow-sm">
-      <h1 className="text-2xl font-bold mb-6 text-gray-800">
+      <h1 className="text-xl font-bold mb-6 text-gray-800">
         Expenses by Category
       </h1>
       <ResponsiveContainer width="100%" height={300}>

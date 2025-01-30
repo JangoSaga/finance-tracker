@@ -81,7 +81,7 @@ function SavingsLineChart({ savings }) {
   return (
     <div className="flex flex-col justify-center items-center w-full p-4">
       <div className="w-full flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">
+        <h1 className="text-xl font-bold">
           {timeFrame === "weekly"
             ? "Weekly Savings"
             : timeFrame === "monthly"
