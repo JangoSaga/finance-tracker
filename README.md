@@ -2,7 +2,16 @@
 
 A modern, full-featured personal finance management application that helps you take control of your financial life.
 
-![Finance Tracker](./public/wallpaper.jpg)
+## 📷 Screenshots:
+
+<p>
+  <img src="https://github.com/user-attachments/assets/92ae879f-b5bc-4a6a-931b-89a180485c87" width="50%" />
+  <img src="https://github.com/user-attachments/assets/0c8f1216-efa5-4ecb-8a0a-44b1c93f3a93"  />
+  <img src="https://github.com/user-attachments/assets/e9821d5c-1541-48e7-9a30-6a58bc40b340" />
+  <img src="https://github.com/user-attachments/assets/2129bb19-a83e-4031-8577-376799f290ac" />
+  <img src="https://github.com/user-attachments/assets/bf6802e9-9e47-4eca-a31f-85948682876f"  />
+</p>
+
 
 ## ✨ Features
 
