@@ -3,7 +3,7 @@ import Header from "./components/Header";
 
 function UserLayout() {
   return (
-    <div className="min-h-screen flex flex-col bg-[url('./wallpaper.jpg')] bg-cover bg-center bg-no-repeat">
+    <div className="min-h-screen flex flex-col bg-[url('/wallpaper.png')] bg-cover bg-center bg-no-repeat">
       <Header variant="auth" />
       <main className="flex-grow flex items-center justify-center m-4 shadow-xl rounded-xl ">
         <Outlet />

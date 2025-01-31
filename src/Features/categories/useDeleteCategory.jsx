@@ -16,8 +16,10 @@ export function useDeleteCategory() {
       toast.success("Category deleted");
       queryClient.invalidateQueries({ queryKey: ["categories", user?.id] });
     },
-    onError: (error) => {
-      toast.error(error.message);
+    onError: () => {
+      toast.error(
+        "Error while deleting category, maybe the categories are in use"
+      );
     },
   });
   return { deleteCategory, isLoading, error };

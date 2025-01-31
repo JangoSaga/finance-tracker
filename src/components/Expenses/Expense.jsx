@@ -149,7 +149,6 @@ export function Expense({ expense }) {
                 }
                 className="p-2 border rounded"
               >
-                {/* Assuming you have categories available */}
                 <option value="">Select Category</option>
                 {categories.map((category) => (
                   <option

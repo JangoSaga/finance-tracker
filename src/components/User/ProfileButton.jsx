@@ -6,9 +6,9 @@ import { Link } from "react-router";
 const Stl = {
   container: "flex flex-row items-center gap-2",
   profile:
-    "flex flex-row items-center gap-2 hover:text-green-500 hover:border-green-500 transition-all duration-300 rounded-xl p-2 border-2 border-gray-700",
+    "flex flex-row items-center gap-2 focus:text-green-500 focus:border-green-500 transition-all duration-300 rounded-xl p-2 border-2 border-gray-700",
   logout:
-    "flex flex-row items-center gap-2 hover:text-red-500 hover:border-red-500 transition-all duration-300 rounded-xl p-4 border-2 border-gray-700",
+    "flex flex-row items-center gap-2 focus:text-red-500 focus:border-red-500 transition-all duration-300 rounded-xl p-4 border-2 border-gray-700",
 };
 
 function ProfileButton() {

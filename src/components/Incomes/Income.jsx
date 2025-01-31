@@ -15,6 +15,7 @@ export function Income({ income }) {
     updateIncome({ incomeId: income.income_id, income: incomeData });
     setIsEditing(false);
   };
+  console.log(income);
   return (
     <>
       {!isEditing ? (
@@ -24,7 +25,7 @@ export function Income({ income }) {
             ${income.amount}
           </td>
           <td className="px-6 py-4 whitespace-nowrap capitalize">
-            {income.type}
+            {income.type === "one_time" ? "One Time" : "Recurring"}{" "}
           </td>
           <td className="px-6 py-4 whitespace-nowrap capitalize">
             {income.recurring_frequency || "-"}

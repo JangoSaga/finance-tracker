@@ -25,7 +25,7 @@ function IncomeFilters({
       >
         <option value="all">All Types</option>
         <option value="recurring">Recurring</option>
-        <option value="one-time">One-Time</option>
+        <option value="one_time">One-Time</option>
       </select>
       <select
         value={sortBy}
