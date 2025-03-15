@@ -1,7 +1,10 @@
 # 💰 Finance Tracker
 
-A modern, full-featured personal finance management application that helps you take control of your financial life.
+## Preview URL
+https://finannce-tracker.netlify.app/
 
+
+A modern, full-featured personal finance management application that helps you take control of your financial life.
 ## 📷 Screenshots:
 
 <p>
@@ -63,11 +66,6 @@ A modern, full-featured personal finance management application that helps you t
 - Dark-themed navigation
 - Smooth transitions and animations
 - User-friendly toast notifications
-
-## 📝 License
-
-© 2025 Finance Tracker. All rights reserved.
-
 ---
 
 <p align="center">Take control of your financial future with Finance Tracker 📈</p>
