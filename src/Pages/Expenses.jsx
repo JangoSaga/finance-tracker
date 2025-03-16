@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { useExpenses } from "../Features/expenses/useExpenses";
+import { useExpenses } from "../Features/Expenses/useExpenses";
 import { Expense } from "../components/Expenses/Expense";
 import Loading from "../components/Loading";
 import Table from "../components/Table/Table";
