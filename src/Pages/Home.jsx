@@ -1,6 +1,6 @@
 // import FinancialPieChart from "../components/dashboard/FinancialPieChart";
 import { useIncomes } from "../Features/incomes/useIncomes";
-import { useExpenses } from "../Features/expenses/useExpenses";
+import { useExpenses } from "../Features/Expenses/useExpenses";
 import FinancialPieChart from "../components/dashboard/FinancialPieChart";
 import ExpensesByCategoryChart from "../components/dashboard/ExpensesByCategoryChart";
 import IncomeSourcesChart from "../components/dashboard/IncomeSourcesChart";
