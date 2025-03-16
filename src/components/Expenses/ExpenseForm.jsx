@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useAddExpense } from "../../Features/expenses/useAddExpenses";
+import { useAddExpense } from "../../Features/Expenses/useAddExpenses";
 import { useCategories } from "../../Features/categories/useCategories";
 import Loading from "../Loading";
 
