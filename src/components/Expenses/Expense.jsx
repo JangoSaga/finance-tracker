@@ -38,7 +38,7 @@ export function Expense({ expense }) {
             {expense.recurring_frequency || "one time"}
           </td>
           <td className="px-6 py-4 whitespace-nowrap">
-            {expense.type === "one_time" ? expense.date : expense.spend_date}
+            {expense.type === "one_time" ? expense.spend_date : "-"}
           </td>
           <td className="px-6 py-4 whitespace-nowrap">
             {categories?.find(
@@ -101,9 +101,12 @@ export function Expense({ expense }) {
               {expenseData.type === "one_time" && (
                 <input
                   type="date"
-                  value={expenseData.date}
+                  value={expenseData.spend_date}
                   onChange={(e) =>
-                    setExpenseData({ ...expenseData, date: e.target.value })
+                    setExpenseData({
+                      ...expenseData,
+                      spend_date: e.target.value,
+                    })
                   }
                   className="p-2 border rounded"
                 />
@@ -120,23 +123,13 @@ export function Expense({ expense }) {
                     }
                     className="p-2 border rounded"
                   >
-                    <option value="daily">Daily</option>
-                    <option value="weekly">Weekly</option>
-                    <option value="monthly">Monthly</option>
-                    <option value="yearly">Yearly</option>
+                    <option value="">Select a frequency</option>
+                    <option value="weekly">End of Week</option>
+                    <option value="biweekly">Every 2 Weeks</option>
+                    <option value="monthly">End of Month</option>
+                    <option value="quarterly">End of Quarter</option>
+                    <option value="yearly">End of Year</option>
                   </select>
-                  <input
-                    type="number"
-                    value={expenseData.spend_date}
-                    onChange={(e) =>
-                      setExpenseData({
-                        ...expenseData,
-                        spend_date: e.target.value,
-                      })
-                    }
-                    className="p-2 border rounded"
-                    placeholder="Spend Date"
-                  />
                 </>
               )}
               <select

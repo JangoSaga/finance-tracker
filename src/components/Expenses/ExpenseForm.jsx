@@ -16,7 +16,7 @@ function ExpenseForm() {
       amount: 0,
       type: "",
       recurring_frequency: "",
-      spend_date: 0,
+      spend_date: null,
       date: new Date().toISOString().split("T")[0],
       category_id: 0,
     },
@@ -100,64 +100,52 @@ function ExpenseForm() {
       </div>
 
       {expenseType === "recurring" && (
-        <>
-          <div className="w-full md:w-fit">
-            <select
-              {...register("recurring_frequency", {
-                required: "Please select a frequency",
-              })}
-              className={`p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full ${
-                errors.recurring_frequency
-                  ? "border-red-500"
-                  : "border-gray-300"
-              }`}
-            >
-              <option value="">Select a frequency</option>
-              <option value="daily">Daily</option>
-              <option value="weekly">Weekly</option>
-              <option value="monthly">Monthly</option>
-              <option value="yearly">Yearly</option>
-            </select>
-            {errors.recurring_frequency && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.recurring_frequency.message}
-              </p>
-            )}
-          </div>
-
-          <div className="w-full md:w-fit">
-            <input
-              type="number"
-              placeholder="Recurring Date"
-              {...register("spend_date", {
-                required: "Recurring date is required",
-                min: { value: 1, message: "Date must be between 1 and 31" },
-                max: { value: 31, message: "Date must be between 1 and 31" },
-              })}
-              className={`p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full ${
-                errors.spend_date ? "border-red-500" : "border-gray-300"
-              }`}
-            />
-            {errors.spend_date && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.spend_date.message}
-              </p>
-            )}
-          </div>
-        </>
+        <div className="w-full md:w-fit">
+          <select
+            {...register("recurring_frequency", {
+              required: "Please select a frequency",
+            })}
+            className={`p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full ${
+              errors.recurring_frequency ? "border-red-500" : "border-gray-300"
+            }`}
+          >
+            <option value="">Select a frequency</option>
+            <option value="weekly">End of Week</option>
+            <option value="biweekly">Every 2 Weeks</option>
+            <option value="monthly">End of Month</option>
+            <option value="quarterly">End of Quarter</option>
+            <option value="yearly">End of Year</option>
+          </select>
+          {errors.recurring_frequency && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.recurring_frequency.message}
+            </p>
+          )}
+        </div>
       )}
 
       {expenseType === "one_time" && (
         <div className="w-full md:w-fit">
           <input
             type="date"
-            {...register("date", { required: "Date is required" })}
+            {...register("spend_date", {
+              required: "Date is required",
+              valueAsDate: true,
+              validate: (value) => {
+                if (!value) return "Please select a date";
+                const date = new Date(value);
+                return date <= new Date() || "Date cannot be in the future";
+              },
+            })}
             className={`p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full ${
-              errors.date ? "border-red-500" : "border-gray-300"
+              errors.spend_date ? "border-red-500" : "border-gray-300"
             }`}
+            max={new Date().toISOString().split("T")[0]}
           />
-          {errors.date && (
-            <p className="text-red-500 text-sm mt-1">{errors.date.message}</p>
+          {errors.spend_date && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.spend_date.message}
+            </p>
           )}
         </div>
       )}

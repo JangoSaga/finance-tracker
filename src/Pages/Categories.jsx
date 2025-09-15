@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import EmojiPicker from "emoji-picker-react";
 import { useCategories } from "../Features/categories/useCategories";
 import { useCreateCategory } from "../Features/categories/useCreateCategory";
 import Category from "../components/categories/Category";
 import Table from "../components/Table/Table";
 import Loading from "../components/Loading";
+import { useUser } from "../Features/Authentication/useUser";
 
 function Categories() {
-  const { categories, isLoading, error } = useCategories();
+  const { user } = useUser();
+  const { categories, isLoading, error, refetch } = useCategories();
   const [categoryName, setCategoryName] = useState("");
   const [categoryType, setCategoryType] = useState("income");
   const {
@@ -15,6 +17,50 @@ function Categories() {
     isLoading: isCreating,
     error: creatingError,
   } = useCreateCategory();
+
+  // Default categories
+  const defaultCategories = [
+    { category_name: "Groceries", emoji: "🛒" },
+    { category_name: "Rent", emoji: "🏠" },
+    { category_name: "Utilities", emoji: "💡" },
+    { category_name: "Transportation", emoji: "🚗" },
+    { category_name: "Dining Out", emoji: "🍽️" },
+    { category_name: "Entertainment", emoji: "🎬" },
+    { category_name: "Healthcare", emoji: "🏥" },
+    { category_name: "Shopping", emoji: "🛍️" },
+    { category_name: "Education", emoji: "📚" },
+    { category_name: "Salary", emoji: "💰" },
+    { category_name: "Freelance", emoji: "💼" },
+    { category_name: "Investments", emoji: "📈" },
+  ];
+
+  // Add default categories if user has no categories (only on first load)
+  useEffect(() => {
+    const hasAddedDefaults = localStorage.getItem("hasAddedDefaultCategories");
+
+    const addDefaultCategories = async () => {
+      if (
+        !hasAddedDefaults &&
+        !isLoading &&
+        categories?.length === 0 &&
+        user?.id
+      ) {
+        try {
+          for (const category of defaultCategories) {
+            await createCategory(category);
+          }
+          // Set flag in localStorage to prevent adding defaults again
+          localStorage.setItem("hasAddedDefaultCategories", "true");
+          // Refresh categories after adding defaults
+          await refetch();
+        } catch (error) {
+          console.error("Error adding default categories:", error);
+        }
+      }
+    };
+
+    addDefaultCategories();
+  }, [isLoading, categories, user?.id, createCategory, refetch]);
   const [categoryEmoji, setCategoryEmoji] = useState("💰");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
@@ -40,7 +86,7 @@ function Categories() {
     setShowEmojiPicker(false);
   };
 
-  const tableHeaders = ["Name", "Type", "Emoji", "Actions"];
+  const tableHeaders = ["Name", "Emoji", "Actions"];
 
   if (isLoading || isCreating) return <Loading />;
   return (
@@ -78,15 +124,6 @@ function Categories() {
           onChange={(e) => setCategoryName(e.target.value)}
           className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full md:w-fit"
         />
-        <select
-          name="type"
-          value={categoryType}
-          onChange={(e) => setCategoryType(e.target.value)}
-          className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full md:w-fit"
-        >
-          <option value="income">Income</option>
-          <option value="expense">Expense</option>
-        </select>
         <button
           type="submit"
           className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 w-full md:w-fit"

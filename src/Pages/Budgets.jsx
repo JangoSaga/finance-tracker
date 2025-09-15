@@ -11,7 +11,7 @@ function Budgets() {
     amount: 0,
     type: "",
     category_id: 0,
-    start_date: 0,
+    start_date: null,
     is_repeating: false,
   });
   const { budgets, isLoading: isLoadingBudgets } = useBudget();
@@ -29,7 +29,7 @@ function Budgets() {
             amount: 0,
             type: "",
             category_id: 0,
-            start_date: 0,
+            start_date: null,
             is_repeating: false,
           });
         },
@@ -68,17 +68,21 @@ function Budgets() {
           className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full md:w-fit"
         >
           <option value="">Select a frequency</option>
-          <option value="daily">Daily</option>
-          <option value="weekly">Weekly</option>
-          <option value="monthly">Monthly</option>
-          <option value="yearly">Yearly</option>
+          <option value="weekly">End of Week</option>
+          <option value="biweekly">Every 2 Weeks</option>
+          <option value="monthly">End of Month</option>
+          <option value="quarterly">End of Quarter</option>
+          <option value="yearly">End of Year</option>
         </select>
         <input
-          type="number"
+          type="date"
           placeholder="Start Date"
           value={newBudget.start_date}
           onChange={(e) =>
-            setNewBudget({ ...newBudget, start_date: e.target.value })
+            setNewBudget({
+              ...newBudget,
+              start_date: new Date(e.target.value).toISOString().split("T")[0],
+            })
           }
           className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full md:w-fit"
         />

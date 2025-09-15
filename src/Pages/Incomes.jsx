@@ -49,8 +49,8 @@ function Incomes() {
       <AddIncomeForm />
 
       {incomes.length > 0 ? (
-        <div className="flex gap-4 md:flex-row flex-col">
-          <div className="w-full md:w-1/3">
+        <div className="flex gap-4 md:flex-col flex-row">
+          <div className="w-full">
             <IncomeFilters
               searchTerm={searchTerm}
               setSearchTerm={setSearchTerm}
@@ -63,7 +63,7 @@ function Incomes() {
               searchPlaceholder="Search by source name..."
             />
           </div>
-          <div className="w-full md:w-2/3">
+          <div className="w-full">
             <Table headers={tableHeaders}>
               {filteredAndSortedIncomes.map((income) => (
                 <Income key={income.income_id} income={income} />

@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useDeleteCategory } from "../../Features/categories/useDeleteCategory";
 import { useUpdateCategory } from "../../Features/categories/useUpdateCategory";
+import EmojiPicker from "emoji-picker-react";
 
 function Category({ category }) {
   const { deleteCategory, isLoading: isDeleting, error } = useDeleteCategory();
@@ -12,18 +13,30 @@ function Category({ category }) {
   } = useUpdateCategory();
   const [isEditing, setIsEditing] = useState(false);
   const [editedCategory, setEditedCategory] = useState(category);
-
+  const [categoryEmoji, setCategoryEmoji] = useState(category.emoji);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const onEmojiClick = (emojiObject) => {
+    setCategoryEmoji(emojiObject.emoji);
+    setEditedCategory((prev) => ({
+      ...prev,
+      emoji: emojiObject.emoji,
+    }));
+    setShowEmojiPicker(false);
+  };
   const handleSubmit = (e) => {
+    console.log(editedCategory);
     e.preventDefault();
     updateCategory(
       {
         categoryId: category.category_id,
         category: editedCategory,
+        emoji: categoryEmoji,
       },
       {
         onSettled: () => {
           setIsEditing(false);
           setEditedCategory(category);
+          setCategoryEmoji(editedCategory.emoji);
         },
       }
     );
@@ -61,20 +74,25 @@ function Category({ category }) {
               className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full"
             />
           </td>
-          <td className="px-6 py-4">
-            <select
-              value={editedCategory.type}
-              onChange={(e) =>
-                setEditedCategory({
-                  ...editedCategory,
-                  type: e.target.value,
-                })
-              }
-              className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full"
+          <td className="relative w-full md:w-fit">
+            <button
+              type="button"
+              onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+              className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full "
             >
-              <option value="income">Income</option>
-              <option value="expense">Expense</option>
-            </select>
+              {categoryEmoji} Select Emoji
+            </button>
+            {showEmojiPicker && (
+              <div className="absolute z-10 top-full mt-2">
+                <div className="bg-white rounded-md shadow-lg p-2">
+                  <EmojiPicker
+                    onEmojiClick={onEmojiClick}
+                    width={300}
+                    height={400}
+                  />
+                </div>
+              </div>
+            )}
           </td>
           <td className="px-6 py-4">
             <div className="flex gap-2">
@@ -99,17 +117,6 @@ function Category({ category }) {
       ) : (
         <>
           <td className="px-6 py-4">{category.category_name}</td>
-          <td className="px-6 py-4">
-            <span
-              className={`capitalize px-2 py-1 rounded-full ${
-                category.type === "income"
-                  ? "bg-green-100 text-green-800"
-                  : "bg-red-100 text-red-800"
-              }`}
-            >
-              {category.type}
-            </span>
-          </td>
           <td className="px-6 py-4 text-4xl ">{category.emoji}</td>
           <td className="px-6 py-4 flex ">
             <div className="flex gap-2">

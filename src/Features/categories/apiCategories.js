@@ -11,7 +11,20 @@ export async function getCategories({ userId }) {
   return data;
 }
 export async function createCategory({ userId, category }) {
-  console.log(category);
+  const { data: existingCategory, error: fetchError } = await supabase
+    .from(CATEGORIES_TABLE)
+    .select("*")
+    .eq("user_id", userId)
+    .ilike("category_name", category.category_name)
+    .maybeSingle();
+
+  if (fetchError) {
+    throw new Error(fetchError.message);
+  }
+
+  if (existingCategory) {
+    throw new Error("A category with this name already exists");
+  }
   const { data, error } = await supabase
     .from(CATEGORIES_TABLE)
     .insert({
@@ -19,13 +32,13 @@ export async function createCategory({ userId, category }) {
       ...category,
     })
     .select();
+
   if (error) {
     throw new Error(error.message);
   }
   return data;
 }
 export async function deleteCategory({ userId, categoryId }) {
-  console.log(categoryId);
   const { data, error } = await supabase
     .from(CATEGORIES_TABLE)
     .delete()
@@ -37,7 +50,6 @@ export async function deleteCategory({ userId, categoryId }) {
   return data;
 }
 export async function updateCategory({ userId, categoryId, category }) {
-  console.log(category);
   const { data, error } = await supabase
     .from(CATEGORIES_TABLE)
     .update(category)

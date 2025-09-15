@@ -58,19 +58,19 @@ function App() {
         </Routes>
       </BrowserRouter>
       <Toaster
-        position="top-center"
+        position="bottom-center"
         gutter={12}
         containerStyle={{ margin: "8px" }}
         toastOptions={{
           success: {
-            duration: 4000,
+            duration: 5000,
             style: {
               background: "white",
               color: "black",
             },
           },
           error: {
-            duration: 4000,
+            duration: 5000,
             style: {
               background: "white",
               color: "black",

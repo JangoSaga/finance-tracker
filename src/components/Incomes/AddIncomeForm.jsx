@@ -8,13 +8,14 @@ function AddIncomeForm() {
     amount: "",
     type: "",
     recurring_frequency: "",
-    receiving_date: 0,
+    receiving_date: null,
     date: new Date().toISOString().split("T")[0],
   });
 
   const { addIncome, isLoading } = useAddIncome();
 
   function handleAddIncome(e) {
+    console.log(income);
     e.preventDefault();
     if (
       income.source_name === "" ||
@@ -25,14 +26,6 @@ function AddIncomeForm() {
       return;
     }
 
-    if (
-      income.type === "recurring" &&
-      (!income.recurring_frequency || !income.receiving_date)
-    ) {
-      toast.error("Please fill all recurring income fields");
-      return;
-    }
-
     addIncome(income, {
       onSettled: () => {
         setIncome({
@@ -40,7 +33,7 @@ function AddIncomeForm() {
           amount: "",
           type: "",
           recurring_frequency: "",
-          receiving_date: 0,
+          receiving_date: null,
           date: new Date().toISOString().split("T")[0],
         });
       },
@@ -76,38 +69,39 @@ function AddIncomeForm() {
         <option value="one_time">One Time</option>
       </select>
       {income.type === "recurring" && (
-        <>
-          <select
-            value={income.recurring_frequency}
-            onChange={(e) =>
-              setIncome({ ...income, recurring_frequency: e.target.value })
-            }
-            className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full md:w-fit"
-          >
-            <option value="">Select Frequency</option>
-            <option value="weekly">Weekly</option>
-            <option value="monthly">Monthly</option>
-            <option value="yearly">Yearly</option>
-          </select>
-
-          <input
-            type="number"
-            min="1"
-            max={income.recurring_frequency === "monthly" ? "31" : "365"}
-            placeholder="Receiving Day"
-            value={income.receiving_date}
-            onChange={(e) =>
-              setIncome({ ...income, receiving_date: e.target.value })
-            }
-            className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full md:w-fit"
-          />
-        </>
+        <select
+          value={income.recurring_frequency}
+          onChange={(e) =>
+            setIncome({ ...income, recurring_frequency: e.target.value })
+          }
+          className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full md:w-fit"
+        >
+          <option value="">Select a frequency</option>
+          <option value="weekly">End of Week</option>
+          <option value="biweekly">Every 2 Weeks</option>
+          <option value="monthly">End of Month</option>
+          <option value="quarterly">End of Quarter</option>
+          <option value="yearly">End of Year</option>
+        </select>
       )}
+
       {income.type === "one_time" && (
         <input
           type="date"
-          value={income.date}
-          onChange={(e) => setIncome({ ...income, date: e.target.value })}
+          value={
+            income.receiving_date
+              ? new Date(income.receiving_date).toISOString().split("T")[0]
+              : ""
+          }
+          onChange={(e) =>
+            setIncome({
+              ...income,
+              receiving_date: new Date(e.target.value)
+                .toISOString()
+                .split("T")[0],
+            })
+          }
+          max={new Date().toISOString().split("T")[0]}
           className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full md:w-fit"
         />
       )}
@@ -128,7 +122,7 @@ function AddIncomeForm() {
             amount: "",
             type: "",
             recurring_frequency: "",
-            receiving_date: 0,
+            receiving_date: null,
             date: new Date().toISOString().split("T")[0],
           })
         }

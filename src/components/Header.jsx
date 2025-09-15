@@ -33,27 +33,6 @@ function Header({ variant = "default" }) {
           </div>
         )}
       </div>
-      {/* {!isSimple && (
-          <button
-            className="md:hidden text-2xl"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? "×" : "☰"}
-          </button>
-        )}
-        <h1 className="text-2xl font-bold">Finance Tracker</h1>
-        {!isSimple && (
-          <div className="flex flex-row gap-2 items-center">
-            <ProfileButton />
-          </div>
-        )} */}
-
-      {/* Mobile menu
-      {!isSimple && isMenuOpen && (
-        <div className="md:hidden border-t-2 border-gray-700">
-          <Navbar setIsMenuOpen={setIsMenuOpen} isMenuOpen={isMenuOpen} />
-        </div>
-      )} */}
     </header>
   );
 }

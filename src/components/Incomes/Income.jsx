@@ -31,7 +31,7 @@ export function Income({ income }) {
             {income.recurring_frequency || "-"}
           </td>
           <td className="px-6 py-4 whitespace-nowrap">
-            {income.type === "one-time" ? income.date : income.receiving_date}
+            {income.receiving_date || "-"}
           </td>
           <td className="px-6 py-4 whitespace-nowrap space-x-2 flex flex-row gap-2">
             <button
@@ -86,9 +86,12 @@ export function Income({ income }) {
               {incomeData.type === "one_time" && (
                 <input
                   type="date"
-                  value={incomeData.date}
+                  value={incomeData.receiving_date}
                   onChange={(e) =>
-                    setIncomeData({ ...incomeData, date: e.target.value })
+                    setIncomeData({
+                      ...incomeData,
+                      receiving_date: e.target.value,
+                    })
                   }
                   className="p-2 border rounded"
                 />
@@ -105,22 +108,13 @@ export function Income({ income }) {
                     }
                     className="p-2 border rounded"
                   >
-                    <option value="daily">Daily</option>
-                    <option value="weekly">Weekly</option>
-                    <option value="monthly">Monthly</option>
-                    <option value="yearly">Yearly</option>
+                    <option value="">Select a frequency</option>
+                    <option value="weekly">End of Week</option>
+                    <option value="biweekly">Every 2 Weeks</option>
+                    <option value="monthly">End of Month</option>
+                    <option value="quarterly">End of Quarter</option>
+                    <option value="yearly">End of Year</option>
                   </select>
-                  <input
-                    type="number"
-                    value={incomeData.receiving_date}
-                    onChange={(e) =>
-                      setIncomeData({
-                        ...incomeData,
-                        receiving_date: e.target.value,
-                      })
-                    }
-                    className="p-2 border rounded"
-                  />
                 </>
               )}
               <button
