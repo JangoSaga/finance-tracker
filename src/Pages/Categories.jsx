@@ -47,7 +47,7 @@ function Categories() {
       ) {
         try {
           for (const category of defaultCategories) {
-            await createCategory(category);
+            await createCategory({ category, defaultCat: true });
           }
           // Set flag in localStorage to prevent adding defaults again
           localStorage.setItem("hasAddedDefaultCategories", "true");

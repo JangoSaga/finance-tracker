@@ -10,9 +10,11 @@ export function useCreateCategory() {
     isLoading,
     error,
   } = useMutation({
-    mutationFn: (category) => createCategoryApi({ userId: user?.id, category }),
-    onSuccess: () => {
-      toast.success("Category created");
+    mutationFn: ({ category, defaultCat }) =>
+      createCategoryApi({ userId: user?.id, category }),
+    onSuccess: (defaultCat) => {
+      console.log(defaultCat);
+      if (!defaultCat) toast.success("Category created");
       queryClient.invalidateQueries({ queryKey: ["categories", user?.id] });
     },
     onError: (error) => {
