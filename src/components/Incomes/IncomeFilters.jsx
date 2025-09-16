@@ -10,7 +10,7 @@ function IncomeFilters({
   setSortOrder,
 }) {
   return (
-    <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4 bg-white rounded-lg shadow-xl">
+    <div className="flex md:flex-row flex-col gap-4 p-4 bg-amber-50 rounded-lg shadow-xl">
       <input
         type="text"
         placeholder="Search by source name..."

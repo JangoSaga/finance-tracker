@@ -3,9 +3,9 @@
 function Table({ headers, children, className = "" }) {
   return (
     <div
-      className={`overflow-x-auto shadow-xl p-4 bg-white rounded-lg w-full ${className}`}
+      className={`overflow-x-auto shadow-xl p-4 bg-white rounded-lg ${className}`}
     >
-      <table className="min-w-full bg-white overflow-hidden">
+      <table className="bg-white w-full">
         <thead className="bg-gray-100">
           <tr>
             {headers.map((header, index) => (

@@ -18,7 +18,7 @@ export function Budget({ budget }) {
   if (isDeleting) return <p>Deleting...</p>;
   if (isUpdating) return <p>Updating...</p>;
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
+    <div className="bg-white p-6 rounded-lg shadow-md w-full">
       {!isEditing ? (
         <>
           <div className="flex justify-between items-start mb-4">

@@ -33,7 +33,7 @@ function Navbar({ setIsMenuOpen, isMenuOpen }) {
     <nav
       className={`${
         isMenuOpen ? "block" : "hidden"
-      } md:block flex-col gap-4 bg-gray-800 text-white p-4 md:m-2 md:rounded-lg md:w-[250px] min-w-[250px] max:max-w-[250px] h-[calc(100vh-theme(spacing.20))] sticky top-0`}
+      } md:block flex-col gap-4 bg-gray-800 text-white p-4 md:m-2 md:rounded-lg md:w-[250px] min-w-[250px] max:max-w-[250px] h-[calc(100vh-theme(spacing.20))] `}
     >
       <div className="flex flex-col gap-2 ">
         <StyledLink

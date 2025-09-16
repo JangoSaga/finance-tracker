@@ -4,6 +4,7 @@ import Saving from "../components/Savings/Saving";
 import Loading from "../components/Loading";
 import Table from "../components/Table/Table";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 function Savings() {
   const {
@@ -23,16 +24,21 @@ function Savings() {
   const { addSavings, isLoading: isAddingSavings } = useAddSavings();
 
   const onSubmit = (data) => {
-    addSavings(data, {
-      onSettled: () => {
-        reset({
-          amount: "",
-          date: new Date().toISOString().split("T")[0],
-          description: "",
-          period: "",
-        });
-      },
-    });
+    if (data?.amount > 0 && data?.description != "" && data?.period != "") {
+      addSavings(data, {
+        onSettled: () => {
+          reset({
+            amount: "",
+            date: new Date().toISOString().split("T")[0],
+            description: "",
+            period: "",
+          });
+        },
+      });
+    } else {
+      toast.error("Empty credentials");
+      reset();
+    }
   };
 
   const tableHeaders = ["Description", "Amount", "Period", "Date", "Actions"];

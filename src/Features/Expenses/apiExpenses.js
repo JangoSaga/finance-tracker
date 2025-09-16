@@ -9,7 +9,6 @@ export async function getExpenses(userId) {
   return data;
 }
 export async function addExpense(userId, expense) {
-  console.log(expense);
   const { data, error } = await supabase
     .from(EXPENSES_TABLE)
     .insert({ ...expense, user_id: userId })

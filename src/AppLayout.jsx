@@ -6,7 +6,7 @@ function AppLayout() {
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       <Header />
-      <div className="flex flex-grow overflow-hidden">
+      <div className="flex flex-grow overflow-hidden mt-25">
         <Navbar setIsMenuOpen={() => {}} />
         <main className="p-6 flex-grow overflow-y-auto h-[calc(100vh-theme(spacing.20))] shadow-xl">
           <Outlet />

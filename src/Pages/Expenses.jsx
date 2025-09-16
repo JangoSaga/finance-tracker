@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useExpenses } from "../Features/Expenses/useExpenses";
 import { Expense } from "../components/Expenses/Expense";
 import Loading from "../components/Loading";
@@ -13,7 +13,18 @@ function Expenses() {
   const [filterType, setFilterType] = useState("all");
   const [sortBy, setSortBy] = useState("date");
   const [sortOrder, setSortOrder] = useState("desc");
+  const [totalExpense, setTotalBalance] = useState(0);
 
+  useEffect(() => {
+    function totalBalance() {
+      let s = 0;
+      for (let i = 0; i < expenses?.length; i++) {
+        s += expenses[i]?.amount;
+      }
+      setTotalBalance(s);
+    }
+    totalBalance();
+  }, [expenses]);
   const tableHeaders = [
     "Description",
     "Amount",
@@ -23,7 +34,6 @@ function Expenses() {
     "Category",
     "Actions",
   ];
-
   const filteredAndSortedExpenses = useMemo(() => {
     if (!expenses) return [];
 
@@ -64,10 +74,12 @@ function Expenses() {
 
   return (
     <div className="flex flex-col gap-4">
+      <div className="bg-red-400 text-white p-4 text-xl rounded-lg shadow-xl">
+        Total Expense: ${totalExpense}
+      </div>
       <ExpenseForm />
-
       {expenses?.length > 0 ? (
-        <div className="flex gap-4 md:flex-col flex-row">
+        <div className="flex gap-4 flex-col">
           <div className="w-full">
             <ExpenseFilters
               searchTerm={searchTerm}

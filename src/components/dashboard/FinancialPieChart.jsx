@@ -18,7 +18,7 @@ function FinancialPieChart({ data }) {
   };
 
   return (
-    <div className="p-6 flex flex-col text-center bg-white rounded-xl shadow-lg w-full max-w-sm mx-auto">
+    <div className="p-6 flex flex-col text-center bg-white rounded-xl shadow-lg w-full mx-auto">
       <h1 className="text-lg sm:text-2xl font-bold mb-4 text-gray-800">
         Income vs Expenses
       </h1>

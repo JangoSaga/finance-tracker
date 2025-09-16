@@ -30,7 +30,7 @@ function IncomeSourcesChart({ incomes }) {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center p-4 bg-white rounded-xl shadow-sm w-full max-w-sm mx-auto">
+    <div className="flex flex-col justify-center items-center p-4 bg-white rounded-xl shadow-sm w-full mx-auto">
       <h1 className="text-lg sm:text-2xl font-bold mb-4 text-gray-800">
         Income Sources
       </h1>
